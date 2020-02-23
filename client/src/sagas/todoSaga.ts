@@ -16,7 +16,7 @@ function* fetchTodos() {
 function* removeTodo({ payload }: ActionInterface) {
     try {
         const { data } = yield call(axios.delete, `${baseURL}/remove/${payload}`);
-        yield put(actions.REMOVE_TODO.SUCCESS(data));
+        yield put(actions.FETCH_TODOS.SUCCESS(data));
     } catch (e) {
         yield put(actions.REMOVE_TODO.FAILED(e))
     }
@@ -25,7 +25,7 @@ function* addTodo({ payload }: ActionInterface) {
     const newTodo = { label: payload, isCompleted: false };
     try {
         const { data } = yield call(axios.post, `${baseURL}/add`, newTodo);;
-        yield put(actions.ADD_TODO.SUCCESS(data));
+        yield put(actions.FETCH_TODOS.SUCCESS(data));
     } catch (e) {
         yield put(actions.ADD_TODO.FAILED(e))
     }
@@ -35,7 +35,7 @@ function* updateTodo({ payload }: ActionInterface) {
     const { label, ...body } = todos.find((todo: TodoInterface) => todo.id === payload);
     try {
         const { data } = yield call(axios.post, `${baseURL}/edit`, body);
-        yield put(actions.UPDATE_TODO.SUCCESS(data));
+        yield put(actions.FETCH_TODOS.SUCCESS(data));
     } catch (e) {
         yield put(actions.UPDATE_TODO.FAILED(e))
     }

@@ -8,9 +8,7 @@ import {
     ActionInterface
 } from '../interfaces';
 
-
-
-// wanted to use signature - 'handlers: ReducerHandlersInterface' but faced error - 'Index signatures are incompatible'.
+// wanted to use - 'handlers: ReducerHandlersInterface' but faced error - 'Index signatures are incompatible'.
 const handlers: object = {
     [types.FETCH_TODOS.REQUEST](state: StateInterface) {
         return {
