@@ -74,5 +74,3 @@ syncActionTypes.forEach((type: string) => {
         ...createTypes(type)
     };
 });
-console.log('actions', actions);
-console.log('types: ', types);

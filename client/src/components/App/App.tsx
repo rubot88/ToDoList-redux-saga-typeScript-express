@@ -55,7 +55,7 @@ const App = () => {
 
   return (
     <div className="todo-app">
-      {message && <Alert message={message} type={type} />}
+      <Alert message={message} type={type} />
       <ItemAddForm
         label={label}
         onSubmit={onSubmit}

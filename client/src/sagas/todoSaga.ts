@@ -1,4 +1,4 @@
-import { call, put, takeLatest, select } from 'redux-saga/effects';
+import { call, put, takeLatest, select, delay } from 'redux-saga/effects';
 import axios from 'axios';
 
 import { ActionInterface, TodoInterface, StateInterface } from '../interfaces';
@@ -10,7 +10,9 @@ function* fetchTodos() {
         const { data } = yield call(axios.get, baseURL);
         yield put(actions.FETCH_TODOS.SUCCESS(data));
     } catch (e) {
-        yield put(actions.FETCH_TODOS.FAILED(e))
+        yield put(actions.ALERT.SHOW_ALERT(e));
+        yield delay(2000);
+        yield put(actions.ALERT.HIDE_ALERT());
     }
 }
 function* removeTodo({ payload }: ActionInterface) {
@@ -18,7 +20,9 @@ function* removeTodo({ payload }: ActionInterface) {
         const { data } = yield call(axios.delete, `${baseURL}/remove/${payload}`);
         yield put(actions.FETCH_TODOS.SUCCESS(data));
     } catch (e) {
-        yield put(actions.REMOVE_TODO.FAILED(e))
+        yield put(actions.ALERT.SHOW_ALERT(e));
+        yield delay(2000);
+        yield put(actions.ALERT.HIDE_ALERT());
     }
 }
 function* addTodo({ payload }: ActionInterface) {
@@ -26,8 +30,18 @@ function* addTodo({ payload }: ActionInterface) {
     try {
         const { data } = yield call(axios.post, `${baseURL}/add`, newTodo);;
         yield put(actions.FETCH_TODOS.SUCCESS(data));
+        const alert = {
+            message: 'Item was successfully added',
+            type: 'success'
+        }
+        yield put(actions.ALERT.SHOW_ALERT(alert));
+        yield delay(2000);
+        yield put(actions.ALERT.HIDE_ALERT());
+
     } catch (e) {
-        yield put(actions.ADD_TODO.FAILED(e))
+        yield put(actions.ALERT.SHOW_ALERT(e));
+        yield delay(2000);
+        yield put(actions.ALERT.HIDE_ALERT());
     }
 }
 function* updateTodo({ payload }: ActionInterface) {
@@ -37,9 +51,12 @@ function* updateTodo({ payload }: ActionInterface) {
         const { data } = yield call(axios.post, `${baseURL}/edit`, body);
         yield put(actions.FETCH_TODOS.SUCCESS(data));
     } catch (e) {
-        yield put(actions.UPDATE_TODO.FAILED(e))
+        yield put(actions.ALERT.SHOW_ALERT(e));
+        yield delay(2000);
+        yield put(actions.ALERT.HIDE_ALERT());
     }
 }
+
 
 
 export default function* todoWatcher() {
