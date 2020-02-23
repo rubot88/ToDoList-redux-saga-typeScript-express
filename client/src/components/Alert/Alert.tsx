@@ -1,10 +1,10 @@
 import React from 'react';
-import { AlertInterface } from '../../interfaces';
+import { AlertStateInterface } from '../../interfaces';
 import { CSSTransition } from 'react-transition-group';
 
 import './Alert.scss';
 
-const Alert = ({ message, type }: AlertInterface) => {
+const Alert = ({ message, type }: AlertStateInterface) => {
 
     return (
         <CSSTransition
@@ -17,8 +17,7 @@ const Alert = ({ message, type }: AlertInterface) => {
             mountOnEnter
             unmountOnExit>
             <div className={`alert alert-${type || 'warning'} `}>
-                <strong className="mr-1">Warning!</strong>
-                {message}
+                <strong>{message}</strong>
             </div>
         </CSSTransition>
     );

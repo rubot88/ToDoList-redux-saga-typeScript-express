@@ -23,29 +23,30 @@ export interface TodoItemInterface {
 };
 
 
-export interface AlertInterface {
+export interface AlertStateInterface {
     message: string;
     type?: string;
 };
 
-export interface StateInterface {
+export interface TodoStateInterface {
     todos: TodoInterface[];
     loading: boolean;
-    error: AlertInterface | null;
 };
 
-export interface InitialStateInterface {
-    todo: StateInterface
+export interface StateInterface {
+    todo: TodoStateInterface;
+    alert: AlertStateInterface;
 }
+
 // action creators
 export interface ActionInterface {
     type: string;
-    payload?: string | TodoInterface[] | TodoInterface | AlertInterface;
+    payload?: string | TodoInterface[] | TodoInterface | AlertStateInterface;
 };
 
 
 export interface ActionTypeInterface {
-    [key: string]: (payload?: string | AlertInterface) => ActionInterface;
+    [key: string]: (payload?: string | AlertStateInterface) => ActionInterface;
 }
 export interface ActionTypesInterface {
     [key: string]: ActionTypeInterface;
@@ -57,10 +58,11 @@ export interface AsyncTypeInterface {
 };
 export interface TypesInterface {
     [key: string]: AsyncTypeInterface;
+
 };
 
 
 // reducer
 export interface ReducerHandlersInterface {
-    [key: string]: (state: StateInterface, action: ActionInterface) => StateInterface;
+    [key: string]: (state: TodoStateInterface | AlertStateInterface, action: ActionInterface) => TodoStateInterface | AlertStateInterface;
 }

@@ -1,12 +1,13 @@
 import {
-    StateInterface,
     ActionInterface,
-    ReducerHandlersInterface
+    ReducerHandlersInterface,
+    AlertStateInterface,
+    TodoStateInterface
 } from '../interfaces';
 
 const createReducer =
-    (initialState: StateInterface, handlers: ReducerHandlersInterface) =>
-        (state = initialState, action: ActionInterface): ReducerHandlersInterface | StateInterface =>
+    (initialState: AlertStateInterface | TodoStateInterface, handlers: ReducerHandlersInterface) =>
+        (state = initialState, action: ActionInterface): ReducerHandlersInterface | AlertStateInterface | TodoStateInterface =>
             handlers.hasOwnProperty(action.type)
                 ? handlers[action.type](state, action)
                 : state;

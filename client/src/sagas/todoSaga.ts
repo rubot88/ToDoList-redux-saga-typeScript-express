@@ -1,7 +1,7 @@
 import { call, put, takeLatest, select } from 'redux-saga/effects';
 import axios from 'axios';
 
-import { ActionInterface, TodoInterface, InitialStateInterface } from '../interfaces';
+import { ActionInterface, TodoInterface, StateInterface } from '../interfaces';
 import { types, actions } from '../utils/actionCreator';
 import { baseURL } from '../constants/apiUrl';
 
@@ -31,7 +31,7 @@ function* addTodo({ payload }: ActionInterface) {
     }
 }
 function* updateTodo({ payload }: ActionInterface) {
-    const todos = yield select((state: InitialStateInterface) => state.todo.todos);
+    const todos = yield select((state: StateInterface) => state.todo.todos);
     const { label, ...body } = todos.find((todo: TodoInterface) => todo.id === payload);
     try {
         const { data } = yield call(axios.post, `${baseURL}/edit`, body);
