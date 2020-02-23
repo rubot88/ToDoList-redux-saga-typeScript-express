@@ -5,6 +5,7 @@ import { actions } from '../../utils/actionCreator';
 import ToDoList from '../ToDoList';
 import ItemAddForm from '../ItemAddForm';
 import { Loader } from "../Loader/Loader";
+import Alert from '../Alert';
 import { InitialStateInterface } from '../../interfaces';
 
 import 'bootstrap/dist/css/bootstrap.css';
@@ -14,7 +15,7 @@ const App = () => {
 
   const dispatch = useDispatch();
 
-  const { todos, loading } = useSelector((state: InitialStateInterface) => {
+  const { todos, loading, error } = useSelector((state: InitialStateInterface) => {
     const { todo: { todos, loading, error } } = state;
     return { todos, loading, error };
   }, shallowEqual);
@@ -49,6 +50,7 @@ const App = () => {
 
   return (
     <div className="todo-app">
+      {error && <Alert message={error.message} type={error.type} />}
       <ItemAddForm
         label={label}
         onSubmit={onSubmit}

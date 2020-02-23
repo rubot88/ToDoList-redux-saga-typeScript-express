@@ -22,16 +22,16 @@ export interface TodoItemInterface {
     todo: TodoInterface;
 };
 
-export interface ErrorInterface {
+
+export interface AlertInterface {
     message: string;
     type?: string;
 };
 
-
 export interface StateInterface {
     todos: TodoInterface[];
     loading: boolean;
-    error: ErrorInterface | null;
+    error: AlertInterface | null;
 };
 
 export interface InitialStateInterface {
@@ -40,12 +40,12 @@ export interface InitialStateInterface {
 // action creators
 export interface ActionInterface {
     type: string;
-    payload?: string | TodoInterface[] | TodoInterface | ErrorInterface;
+    payload?: string | TodoInterface[] | TodoInterface | AlertInterface;
 };
 
 
 export interface ActionTypeInterface {
-    [key: string]: (payload?: string | ErrorInterface) => ActionInterface;
+    [key: string]: (payload?: string | AlertInterface) => ActionInterface;
 }
 export interface ActionTypesInterface {
     [key: string]: ActionTypeInterface;
