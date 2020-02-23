@@ -47,7 +47,7 @@ router.post('/add', async (req, res) => {
 // remove entry by id
 router.delete('/remove/:id', async (req, res) => {
   try {
-    const removedTodo = await Todo.findOneAndRemove(req.params.id);
+    const removedTodo = await Todo.findOneAndRemove({ _id: req.params.id });
     if (!removedTodo) throw new Error('Entry doesn\'t exist!');
     let todos = await Todo.find();
     todos = mapDataToResponse(todos);
