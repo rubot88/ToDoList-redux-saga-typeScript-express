@@ -1,4 +1,5 @@
 import React from 'react';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 import ToDoListItem from '../ToDoListItem';
 
@@ -9,20 +10,27 @@ import './ToDoList.scss'
 const ToDoList = ({ todos, handleTodoRemove, handleTodoComplete }: TodoListInterface) => {
     const elements: React.ReactElement[] = todos.map((item: TodoInterface): React.ReactElement => {
         return (
-            <li key={item.id}
-                className="list-group-item">
-                <ToDoListItem
-                    todo={item}
-                    handleTodoRemove={() => handleTodoRemove(item.id)}
-                    handleTodoComplete={() => handleTodoComplete(item.id)}
-                />
-            </li>
+            <CSSTransition
+                timeout={800}
+                classNames={'item'}
+                key={item.id}>
+                <li className="list-group-item ">
+                    <ToDoListItem
+                        todo={item}
+                        handleTodoRemove={() => handleTodoRemove(item.id)}
+                        handleTodoComplete={() => handleTodoComplete(item.id)}
+                    />
+
+                </li>
+            </CSSTransition>
         )
     })
     return (
-        <ul className="list-group todo-list">
+        <TransitionGroup
+            component="ul"
+            className="list-group todo-list">
             {elements}
-        </ul>
+        </TransitionGroup>
     );
 };
 
